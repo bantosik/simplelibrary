@@ -34,7 +34,8 @@ public class Library {
         return newBookCopyId;
     }
 
-    /** Removes book copy by its id. Throws if there is no book referring to the supplied id or the book copy is already lent.
+    /** Removes book copy by its id.
+     * Throws if there is no book referring to the supplied id or the book copy is already lent.
      * @param id id of the book to remove
      */
     public void removeBookById(long id) {
@@ -70,7 +71,8 @@ public class Library {
         return result;
     }
 
-    /** Marks book copy as lent by the user
+    /** Marks book copy as lent by the user.
+     * Throws if book of given id does not exist or is empty
      * @param id id of the book copy to lend
      * @param userName name of the user lending the book
      */
@@ -86,7 +88,8 @@ public class Library {
         bookCopies.put(id, new BookCopy(bookCopy.getBook(), id, userName));
     }
 
-    /** returns detailed information about the book copy
+    /** returns detailed information about the book copy.
+     * Throws if book of given id does not exist
      * @param id id of the book copy
      * @return book copy information
      */
