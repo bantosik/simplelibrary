@@ -3,8 +3,6 @@
  */
 package library;
 
-import com.sun.source.tree.LambdaExpressionTree;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,10 +10,19 @@ import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+/**
+ * Main class of the solution. Contains methods covering library functionalities
+ */
 public class Library {
-    private Map<Long, BookCopy> bookCopies = new HashMap<>();
+    private final Map<Long, BookCopy> bookCopies = new HashMap<>();
     private long nextId = 0;
 
+    /** Add new copy of the book to the library, will assign unique id and return it back
+     * @param title title of the book
+     * @param year year of publication
+     * @param author author of the book
+     * @return unique id users of the class can use to refer to the new copy
+     */
     public long addBook(String title, int year, String author) {
         Objects.requireNonNull(title);
         Objects.requireNonNull(author);
@@ -27,6 +34,9 @@ public class Library {
         return newBookCopyId;
     }
 
+    /** Removes book copy by its id. Throws if there is no book referring to the supplied id or the book copy is already lent.
+     * @param id id of the book to remove
+     */
     public void removeBookById(long id) {
         var bookCopy = bookCopies.get(id);
 
@@ -39,6 +49,9 @@ public class Library {
         bookCopies.remove(id);
     }
 
+    /** list books with their availabilities
+     * @return map from the book to the number of available/lent copies
+     */
     public Map<Book, BookAvailability> listBookAvailability() {
         Map<Book, BookAvailability> result = new HashMap<>();
         for (BookCopy bookCopy : bookCopies.values()) {
@@ -57,6 +70,10 @@ public class Library {
         return result;
     }
 
+    /** Marks book copy as lent by the user
+     * @param id id of the book copy to lend
+     * @param userName name of the user lending the book
+     */
     public void lendForUser(long id, String userName) {
         Objects.requireNonNull(userName);
 
@@ -69,6 +86,10 @@ public class Library {
         bookCopies.put(id, new BookCopy(bookCopy.getBook(), id, userName));
     }
 
+    /** returns detailed information about the book copy
+     * @param id id of the book copy
+     * @return book copy information
+     */
     public BookCopy getBookCopyInfo(Long id) {
         var bookCopy = bookCopies.get(id);
         if (bookCopy == null) {
@@ -77,6 +98,10 @@ public class Library {
         return bookCopy;
     }
 
+    /** search through the books and return copies adhering to the predicate supplied
+     * @param predicate boolean predicate taking book basic information
+     * @return list of book copies for which predicate is true
+     */
     public List<BookCopy> search(Predicate<? super Book> predicate) {
         return bookCopies.values().stream()
                 .filter(bookCopy -> predicate.test(bookCopy.getBook()))

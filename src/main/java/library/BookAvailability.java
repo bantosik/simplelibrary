@@ -1,5 +1,8 @@
 package library;
 
+/**
+ * Describes availability of the book in the library
+ */
 public class BookAvailability {
     private final long numAvailable;
     private final long numLent;

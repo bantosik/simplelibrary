@@ -2,6 +2,9 @@ package library;
 
 import java.util.Objects;
 
+/**
+ * Abstract book entity not related to any actual copy, contains basic information about the book.
+ */
 public class Book {
     private final String title;
     private final int year;

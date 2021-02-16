@@ -2,6 +2,9 @@ package library;
 
 import java.util.Optional;
 
+/**
+ * Holds information about actual physical book copy that can be lend by the users of the library.
+ */
 public class BookCopy {
     private final Book book;
     private final long id;
